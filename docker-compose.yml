@@ -1,14 +1,15 @@
-version: '3.1'
-services: 
+version: '3.8'
+services:
   db:
-    image: mysql
-    container_name: mysql
+    image: postgres
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-    - "3306:3306"
-    volumes:
-    - mysql_data:/var/lib/mysql
-    
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
 volumes:
- mysql_data:
+  db:
+    driver: local

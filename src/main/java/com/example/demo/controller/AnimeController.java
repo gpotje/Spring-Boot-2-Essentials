@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Anime;
+import com.example.demo.request.AnimesPostRequestBody;
+import com.example.demo.request.AnimesPutRequestBody;
 import com.example.demo.service.AnimeService;
 import com.example.demo.util.DateUtil;
 
@@ -42,7 +44,7 @@ public class AnimeController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Anime> FindById(@PathVariable Long id){
 		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-		return ResponseEntity.ok(service.findById(id));
+		return ResponseEntity.ok(service.findByIdOrThrowBadRequestException(id));
 	}	
 	
 	@DeleteMapping("/{id}")
@@ -52,13 +54,13 @@ public class AnimeController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Void> replace(@PathVariable Anime anime){
+	public ResponseEntity<Void> replace(@PathVariable AnimesPutRequestBody anime){
 		service.replace(anime);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}	
 	
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody Anime anime){
+	public ResponseEntity<Anime> save(@RequestBody AnimesPostRequestBody anime){
 		return new ResponseEntity<>(service.save(anime),HttpStatus.CREATED);
 	}
 }

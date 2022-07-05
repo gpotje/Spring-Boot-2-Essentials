@@ -1,0 +1,4 @@
+#esconde a trace de erro
+server:
+  error:
+    include-binding-errors: never
