@@ -22,6 +22,10 @@ public class AnimeService {
 	public List<Anime> listAll() {
 		return repository.findAll();
 	}
+	
+	public List<Anime> findByName(String name) {
+		return repository.findByName(name);
+	}
 
 	public Anime findByIdOrThrowBadRequestException(Long id) {
 		return repository.findById(id)

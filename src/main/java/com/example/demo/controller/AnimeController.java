@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Anime;
@@ -42,9 +41,14 @@ public class AnimeController {
 	}	
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Anime> FindById(@PathVariable Long id){
+	public ResponseEntity<Anime> findById(@PathVariable Long id){
 		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
 		return ResponseEntity.ok(service.findByIdOrThrowBadRequestException(id));
+	}	
+	
+	@GetMapping("/findByName")
+	public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+		return ResponseEntity.ok(service.findByName(name));
 	}	
 	
 	@DeleteMapping("/{id}")
