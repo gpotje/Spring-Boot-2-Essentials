@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.domain.Anime;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.AnimeRepository;
 import com.example.demo.request.AnimesPostRequestBody;
 import com.example.demo.request.AnimesPutRequestBody;
@@ -29,7 +30,7 @@ public class AnimeService {
 
 	public Anime findByIdOrThrowBadRequestException(Long id) {
 		return repository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not Found"));
+				.orElseThrow(() -> new BadRequestException( "Anime not Found"));
 	}
 
 	public Anime save(AnimesPostRequestBody anime) {
