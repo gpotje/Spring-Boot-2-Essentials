@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,7 +49,7 @@ public class AnimeController {
 	}	
 	
 	@GetMapping("/findByName")
-	public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+	public ResponseEntity<List<Anime>> findByName(@RequestParam  String name){
 		return ResponseEntity.ok(service.findByName(name));
 	}	
 	
@@ -64,7 +66,7 @@ public class AnimeController {
 	}	
 	
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody AnimesPostRequestBody anime){
+	public ResponseEntity<Anime> save(@RequestBody @Valid  AnimesPostRequestBody anime){
 		return new ResponseEntity<>(service.save(anime),HttpStatus.CREATED);
 	}
 }
